@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=5" />
+    <link rel="stylesheet" href="styles.css?v=6" />
   </head>
   <body class="methodology-page">
     <header class="method-header">
@@ -38,12 +38,11 @@
       </nav>
 
       <div class="method-hero">
-        <p class="eyebrow"><span></span> Evaluation methodology</p>
-        <h1>Measure the model.<br />Measure the <em>system.</em></h1>
+        <p class="eyebrow"><span></span> Methodology</p>
+        <h1>How the benchmark<br /><em>works.</em></h1>
         <p>
-          A strong LLM does not guarantee a strong ontology integration system.
-          We evaluate model capability and workflow orchestration as separate,
-          traceable dimensions.
+          We compare models and workflows only when the task, ontology pair,
+          and evaluation protocol are the same.
         </p>
       </div>
     </header>
@@ -55,33 +54,13 @@
         <div><span>Compared across</span><strong>Model + workflow</strong></div>
       </section>
 
-      <section class="method-section split-section">
-        <div>
-          <p class="section-kicker">The core idea</p>
-          <h2>Two axes explain every result.</h2>
-        </div>
-        <div class="prose">
-          <p>
-            <strong>Model capability</strong> captures what the underlying LLM
-            can recognize, extract, and reason about. <strong>Workflow lift</strong>
-            captures what orchestration adds through ordering, iteration, tool
-            use, and feedback.
-          </p>
-          <p>
-            Ranking only by model hides workflow effects. Ranking only by
-            workflow hides model effects. The leaderboard records both so a run
-            can be compared fairly along either axis.
-          </p>
-        </div>
-      </section>
-
       <section class="run-anatomy">
         <div class="run-anatomy-head">
           <div>
-            <p class="section-kicker">Evaluation unit</p>
-            <h2>Anatomy of a benchmark run</h2>
+            <p class="section-kicker">One leaderboard row</p>
+            <h2>Five fields define a run.</h2>
           </div>
-          <p>Change one dimension at a time to attribute performance correctly.</p>
+          <p>Change one field at a time to understand what improved the result.</p>
         </div>
         <div class="run-flow" aria-label="Task, pair, model, workflow and protocol produce metrics">
           <article>
@@ -118,8 +97,10 @@
 
       <section class="method-section task-methods">
         <div class="section-heading">
-          <p class="section-kicker">Task suite</p>
-          <h2>Three views of integration quality</h2>
+          <div>
+            <p class="section-kicker">Tasks</p>
+            <h2>What we measure</h2>
+          </div>
         </div>
         <div class="method-card-grid">
           <article>
@@ -164,53 +145,38 @@
         </div>
       </section>
 
-      <section class="method-section split-section metric-section">
-        <div>
-          <p class="section-kicker">Scoring</p>
-          <h2>Metrics answer different questions.</h2>
-        </div>
-        <div class="metric-list">
-          <article><strong>Precision</strong><p>How many predicted relations or alignments are correct?</p></article>
-          <article><strong>Recall</strong><p>How much of the gold alignment did the system recover?</p></article>
-          <article><strong>F1</strong><p>What is the harmonic balance between precision and recall?</p></article>
-          <article><strong>MCC</strong><p>How balanced is classification quality across all outcomes?</p></article>
-          <article><strong>Pass@1</strong><p>How often does the first generated answer pass end-to-end?</p></article>
-          <article><strong>Chain accuracy</strong><p>Can the system verify multi-step relational reasoning?</p></article>
-        </div>
-      </section>
-
       <section class="integrity-callout">
         <div class="integrity-icon" aria-hidden="true">!</div>
         <div>
-          <p class="section-kicker">Reporting status</p>
-          <h2>Unknown is better than invented.</h2>
+          <p class="section-kicker">Current data</p>
+          <h2>Model identity is still missing.</h2>
           <p>
-            The source tables in the current release do not identify the LLM
-            used for each run. Those rows are explicitly marked
-            <strong>“Not reported.”</strong> Model comparisons activate as soon
-            as verified model-labelled runs are added to the benchmark data.
+            Existing source tables do not identify the LLM used for each run,
+            so those rows say <strong>“Not reported.”</strong> Tracked models
+            marked “awaiting runs” have no score yet.
           </p>
         </div>
       </section>
 
       <section class="method-section rules-section">
         <div class="section-heading">
-          <p class="section-kicker">Fair comparison rules</p>
-          <h2>When does a ranking count?</h2>
+          <div>
+            <p class="section-kicker">Ranking rules</p>
+            <h2>Keep comparisons fair</h2>
+          </div>
         </div>
         <ol class="rules-list">
           <li><span>01</span><div><strong>Same task</strong><p>Do not rank different evaluation objectives against one another.</p></div></li>
           <li><span>02</span><div><strong>Same ontology pair</strong><p>Pair difficulty and overlap must remain visible.</p></div></li>
           <li><span>03</span><div><strong>Same protocol</strong><p>Sampling, top-k, iteration count, and gold sets must match.</p></div></li>
-          <li><span>04</span><div><strong>Named model</strong><p>Record model version—not only a provider or family name.</p></div></li>
-          <li><span>05</span><div><strong>Traceable workflow</strong><p>Report ordering, feedback, and component configuration.</p></div></li>
+          <li><span>04</span><div><strong>Traceable setup</strong><p>Record the exact model version and workflow ordering.</p></div></li>
         </ol>
       </section>
 
       <section class="method-cta">
         <div>
-          <p class="section-kicker">Explore the evidence</p>
-          <h2>See the runs behind the method.</h2>
+          <p class="section-kicker">Benchmark data</p>
+          <h2>Explore the results.</h2>
         </div>
         <a href="index.html#leaderboard">Open leaderboard <span aria-hidden="true">→</span></a>
       </section>

@@ -938,7 +938,7 @@ footer {
 }
 
 .method-header {
-  min-height: 530px;
+  min-height: 440px;
   padding: 0 clamp(24px, 6vw, 96px);
   color: #f5f8f3;
   background:
@@ -948,7 +948,7 @@ footer {
 
 .method-hero {
   max-width: 1320px;
-  margin: 80px auto 0;
+  margin: 54px auto 0;
 }
 
 .method-hero h1 {
@@ -970,7 +970,7 @@ footer {
 .method-summary {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  margin-top: -54px;
+  margin-top: -42px;
   overflow: hidden;
   background: var(--surface);
   border: 1px solid var(--line);
@@ -1003,7 +1003,7 @@ footer {
 }
 
 .method-section {
-  padding: 104px 0;
+  padding: 76px 0;
   border-bottom: 1px solid var(--line);
 }
 
@@ -1036,8 +1036,8 @@ footer {
 }
 
 .run-anatomy {
-  margin: 104px 0 0;
-  padding: 54px;
+  margin: 72px 0 0;
+  padding: 44px;
   color: #eef5ef;
   background: var(--ink);
   border-radius: 22px;
@@ -1214,8 +1214,8 @@ footer {
   grid-template-columns: auto 1fr;
   gap: 30px;
   align-items: start;
-  margin: 104px 0 0;
-  padding: 48px;
+  margin: 72px 0 0;
+  padding: 38px;
   background: #edf4e6;
   border: 1px solid #d8e7cb;
   border-radius: 18px;
@@ -1282,7 +1282,7 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 90px 0;
+  margin: 70px 0;
 }
 
 .method-cta a {
@@ -1354,7 +1354,7 @@ footer {
   }
 
   .method-header {
-    min-height: 500px;
+    min-height: 420px;
     padding-inline: 20px;
   }
 
