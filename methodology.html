@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=7" />
+    <link rel="stylesheet" href="styles.css?v=8" />
   </head>
   <body class="methodology-page">
     <header class="method-header">
@@ -39,7 +39,7 @@
 
       <div class="method-hero">
         <p class="eyebrow"><span></span> Methodology</p>
-        <h1>How the benchmark<br /><em>works.</em></h1>
+        <h1>How the benchmark <em>works.</em></h1>
         <p>
           We compare models and workflows only when the task, ontology pair,
           and evaluation protocol are the same.
@@ -145,33 +145,34 @@
         </div>
       </section>
 
-      <section class="integrity-callout">
-        <div class="integrity-icon" aria-hidden="true">!</div>
-        <div>
-          <p class="section-kicker">Current data</p>
-          <h2>Model identity is still missing.</h2>
-          <p>
-            Existing source tables do not identify the LLM used for each run,
-            so those rows say <strong>“Not reported.”</strong> Tracked models
-            marked “awaiting runs” have no score yet.
-          </p>
-        </div>
-      </section>
-
-      <section class="method-section rules-section">
-        <div class="section-heading">
-          <div>
-            <p class="section-kicker">Ranking rules</p>
-            <h2>Keep comparisons fair</h2>
+      <div class="method-bottom-grid">
+        <section class="method-section rules-section">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">Ranking rules</p>
+              <h2>Keep comparisons fair</h2>
+            </div>
           </div>
-        </div>
-        <ol class="rules-list">
-          <li><span>01</span><div><strong>Same task</strong><p>Do not rank different evaluation objectives against one another.</p></div></li>
-          <li><span>02</span><div><strong>Same ontology pair</strong><p>Pair difficulty and overlap must remain visible.</p></div></li>
-          <li><span>03</span><div><strong>Same protocol</strong><p>Sampling, top-k, iteration count, and gold sets must match.</p></div></li>
-          <li><span>04</span><div><strong>Traceable setup</strong><p>Record the exact model version and workflow ordering.</p></div></li>
-        </ol>
-      </section>
+          <ol class="rules-list">
+            <li><span>01</span><div><strong>Same task</strong><p>Compare the same evaluation objective.</p></div></li>
+            <li><span>02</span><div><strong>Same pair</strong><p>Keep ontology difficulty visible.</p></div></li>
+            <li><span>03</span><div><strong>Same protocol</strong><p>Match sampling, top-k, and gold sets.</p></div></li>
+            <li><span>04</span><div><strong>Traceable setup</strong><p>Name the model and workflow order.</p></div></li>
+          </ol>
+        </section>
+
+        <aside class="integrity-callout">
+          <div class="integrity-icon" aria-hidden="true">!</div>
+          <div>
+            <p class="section-kicker">Current data</p>
+            <h2>Model identity is pending.</h2>
+            <p>
+              Legacy rows say <strong>“Not reported.”</strong> Tracked models
+              marked “awaiting runs” do not have scores yet.
+            </p>
+          </div>
+        </aside>
+      </div>
 
       <section class="method-cta">
         <div>
