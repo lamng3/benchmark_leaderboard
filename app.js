@@ -47,6 +47,10 @@ function getRowModel(row, task) {
   return row.model || task.defaultModel || "Not reported";
 }
 
+function getTrackedModels() {
+  return state.data.benchmark.models || [];
+}
+
 function getPrimaryColumn(task) {
   return task.columns.find((column) => column.key === task.rankBy);
 }
@@ -108,14 +112,23 @@ function getFilteredRows(task) {
 
 function renderSelects(task) {
   const pairs = [...new Set(task.rows.map((row) => row.pair))];
-  const models = [...new Set(task.rows.map((row) => getRowModel(row, task)))];
+  const rowModels = new Set(task.rows.map((row) => getRowModel(row, task)));
+  const trackedModels = getTrackedModels();
+  const trackedNames = new Set(trackedModels.map((model) => model.name));
+  const legacyModels = [...rowModels].filter((model) => !trackedNames.has(model));
 
   elements.taskFilter.replaceChildren(
     ...state.data.tasks.map((item) => createOption(item.id, `${item.label} · ${item.title}`))
   );
   elements.modelFilter.replaceChildren(
     createOption("all", "All models"),
-    ...models.map((model) => createOption(model, model))
+    ...trackedModels.map((model) =>
+      createOption(
+        model.name,
+        rowModels.has(model.name) ? model.name : `${model.name} · awaiting runs`
+      )
+    ),
+    ...legacyModels.map((model) => createOption(model, model))
   );
   elements.pairFilter.replaceChildren(
     createOption("all", "All ontology pairs"),
@@ -246,22 +259,29 @@ function makeEntityCard(name, rows, task, kind) {
   const card = document.createElement("article");
   card.className = "entity-card";
   if (name === "Not reported") card.classList.add("entity-card-missing");
+  if (!rows.length) card.classList.add("entity-card-awaiting");
 
   const top = document.createElement("div");
   const type = document.createElement("span");
   const title = document.createElement("h4");
-  type.textContent = kind === "models" ? "Model" : "Workflow";
+  const modelMetadata = getTrackedModels().find((model) => model.name === name);
+  type.textContent =
+    kind === "models" && modelMetadata
+      ? modelMetadata.provider
+      : kind === "models" ? "Model identity" : "Workflow";
   title.textContent = name;
   top.append(type, title);
 
   const primary = getPrimaryColumn(task);
-  const best = Math.max(...rows.map((row) => row[task.rankBy]));
+  const best = rows.length ? Math.max(...rows.map((row) => row[task.rankBy])) : null;
   const score = document.createElement("div");
   score.className = "entity-score";
   const scoreLabel = document.createElement("span");
   const scoreValue = document.createElement("strong");
-  scoreLabel.textContent = `Best ${primary.label}`;
-  scoreValue.textContent = formatValue(best, primary.type);
+  scoreLabel.textContent = rows.length ? `Best ${primary.label}` : "Status";
+  scoreValue.textContent = rows.length
+    ? formatValue(best, primary.type)
+    : "Awaiting runs";
   score.append(scoreLabel, scoreValue);
 
   const stats = document.createElement("dl");
@@ -298,9 +318,21 @@ function renderEntityView(task, rows) {
       ? "Model cards summarize coverage within the selected task and protocol."
       : "Workflow cards condense repeated runs across the selected ontology pairs.";
 
-  const cards = [...groups.entries()].map(([name, group]) =>
-    makeEntityCard(name, group, task, kind)
-  );
+  let cards;
+  if (kind === "models") {
+    const query = state.search.trim().toLowerCase();
+    const trackedNames = getTrackedModels().map((model) => model.name);
+    const allNames = [...new Set([...trackedNames, ...groups.keys()])]
+      .filter((name) => state.model === "all" || name === state.model)
+      .filter((name) => !query || name.toLowerCase().includes(query));
+    cards = allNames.map((name) =>
+      makeEntityCard(name, groups.get(name) || [], task, kind)
+    );
+  } else {
+    cards = [...groups.entries()].map(([name, group]) =>
+      makeEntityCard(name, group, task, kind)
+    );
+  }
 
   if (!cards.length) {
     const empty = document.createElement("div");
@@ -316,7 +348,10 @@ function render() {
   if (!task) return;
 
   const validPairs = new Set(task.rows.map((row) => row.pair));
-  const validModels = new Set(task.rows.map((row) => getRowModel(row, task)));
+  const validModels = new Set([
+    ...getTrackedModels().map((model) => model.name),
+    ...task.rows.map((row) => getRowModel(row, task))
+  ]);
   if (state.pair !== "all" && !validPairs.has(state.pair)) state.pair = "all";
   if (state.model !== "all" && !validModels.has(state.model)) state.model = "all";
 
@@ -333,7 +368,9 @@ function render() {
     : `${task.note} Model identities were not reported in the source results.`;
   elements.filteredCount.textContent = rows.length;
   elements.rankingMetric.textContent = primary.label;
-  elements.modelCoverage.textContent = `${reportedRows.length} / ${rows.length} runs`;
+  elements.modelCoverage.textContent = rows.length
+    ? `${reportedRows.length} / ${rows.length} runs`
+    : "No evaluated runs";
 
   renderSelects(task);
   renderTable(task, rows);
@@ -406,10 +443,10 @@ async function initialize() {
     state.view = hashState.view;
 
     const allRows = state.data.tasks.flatMap((task) => task.rows);
-    const reportedModels = new Set(allRows.map((row) => row.model).filter(Boolean));
+    const trackedModels = getTrackedModels();
     elements.workflowCount.textContent = allRows.length;
-    elements.modelCount.textContent = reportedModels.size;
-    elements.modelTabCount.textContent = reportedModels.size;
+    elements.modelCount.textContent = trackedModels.length;
+    elements.modelTabCount.textContent = trackedModels.length;
     elements.pairCount.textContent = new Set(allRows.map((row) => row.pair)).size;
 
     attachEvents();

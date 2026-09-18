@@ -26,6 +26,9 @@ plain static files on GitHub Pages.
 - Never compare or aggregate rows from incompatible task protocols.
 - Treat model and workflow as independent dimensions of every run.
 - Use exact model/version identifiers when known; otherwise use `Not reported`.
+- Keep planned comparison models in `benchmark.models`; `awaiting-runs` models
+  may appear in filters but must never receive invented scores.
+- Spell out `Iteration` in user-facing labels; do not abbreviate it as `Iter`.
 - Keep protocol differences and caveats visible to readers.
 - Treat ties as ties and preserve source-data order for equal scores.
 - Use semantic HTML and maintain keyboard, screen-reader, reduced-motion, and

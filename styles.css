@@ -808,6 +808,16 @@ tbody tr:hover {
   border-style: dashed;
 }
 
+.entity-card-awaiting {
+  background: #f7f8f5;
+  border-style: dashed;
+}
+
+.entity-card-awaiting .entity-score strong {
+  color: #7b8580;
+  font-size: 10px;
+}
+
 .entity-card > div:first-child > span {
   color: #858e89;
   font-family: "DM Mono", monospace;

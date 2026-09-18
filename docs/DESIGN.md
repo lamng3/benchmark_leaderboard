@@ -53,6 +53,7 @@ is set.
 
 `data/leaderboard.json` is the source of truth. Each task defines:
 
+- a benchmark-level model catalog for tracked evaluation candidates;
 - stable ID, display labels, description, protocol, and footnote;
 - a `defaultModel` fallback for legacy results without model identity;
 - `rankBy`, used for descending ranking;
@@ -66,6 +67,8 @@ A complete run should identify both `model` and `workflow`. They are independent
 experimental dimensions: model captures underlying LLM capability, while
 workflow captures orchestration, ordering, iteration, and feedback. Current
 source results omit model identity and therefore display `Not reported`.
+Tracked models without scored rows remain selectable and display
+`Awaiting runs`; this is coverage metadata, not a benchmark result.
 
 ## Updating the benchmark
 

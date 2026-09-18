@@ -3,7 +3,14 @@
     "name": "Agentic Ontology Integration Benchmark",
     "version": "1.0",
     "updated": "2026-09-18",
-    "description": "Workflow-level evaluation of ontology matching, relation extraction, and relation reasoning."
+    "description": "Workflow-level evaluation of ontology matching, relation extraction, and relation reasoning.",
+    "models": [
+      { "name": "GPT-5", "provider": "OpenAI", "status": "awaiting-runs" },
+      { "name": "Claude Opus 4.1", "provider": "Anthropic", "status": "awaiting-runs" },
+      { "name": "Gemini 2.5 Pro", "provider": "Google", "status": "awaiting-runs" },
+      { "name": "DeepSeek-V3.1", "provider": "DeepSeek", "status": "awaiting-runs" },
+      { "name": "Qwen3-235B-A22B", "provider": "Alibaba Cloud", "status": "awaiting-runs" }
+    ]
   },
   "tasks": [
     {
@@ -32,7 +39,7 @@
       ],
       "rows": [
         {
-          "workflow": "Iter 1 · initial",
+          "workflow": "Iteration 1 · Initial pass",
           "pair": "ENVO ↔ SWEET",
           "accuracy": 98.45,
           "precision": 100,
@@ -45,7 +52,7 @@
           "passAt1": 67.5
         },
         {
-          "workflow": "Iter 2 · feedback",
+          "workflow": "Iteration 2 · Feedback pass",
           "pair": "ENVO ↔ SWEET",
           "accuracy": 98.33,
           "precision": 100,
