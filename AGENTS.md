@@ -34,6 +34,8 @@ plain static files on GitHub Pages.
   HTML.
 - Avoid dependencies unless they solve a demonstrated need that native browser
   APIs cannot reasonably address.
+- Bump the `?v=` query on changed CSS or JavaScript references so GitHub Pages
+  cannot serve incompatible cached assets.
 - Keep URLs stable: task, ontology-pair, and model state belongs in the hash.
 
 ## Data changes
