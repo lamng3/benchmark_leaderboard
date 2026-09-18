@@ -12,17 +12,18 @@ The experience should feel:
 - **Credible:** restrained color, explicit protocols, and no decorative scores.
 - **Fast:** static files, no framework, and one small JSON request.
 - **Explorable:** every task and ontology pair is directly linkable in the URL.
-- **Workflow-first:** workflow ordering is more prominent than model branding.
+- **Attributable:** model capability and workflow lift remain separate.
 
 ## Information architecture
 
 1. **Hero:** explains the benchmark and exposes its current scale.
 2. **Benchmark explorer:** TaskA, TaskB, and TaskC selectors plus a simple
    Overall target.
-3. **Ontology-pair filter:** narrows a task without combining incomparable
+3. **Model filter:** compares named model versions within a controlled task.
+4. **Ontology-pair filter:** narrows a task without combining incomparable
    configurations.
-4. **Task card:** task description, protocol, ranked results, and caveat.
-5. **Principles:** communicates workflow-first, pair-aware, reproducible design.
+5. **Task card:** task description, protocol, ranked results, and caveat.
+6. **Methodology:** explains the evaluation unit and fair-comparison rules.
 
 ## Task mapping
 
@@ -51,6 +52,7 @@ metrics. Motion is minimal and disabled when `prefers-reduced-motion` is set.
 `data/leaderboard.json` is the source of truth. Each task defines:
 
 - stable ID, display labels, description, protocol, and footnote;
+- a `defaultModel` fallback for legacy results without model identity;
 - `rankBy`, used for descending ranking;
 - ordered column definitions with display types;
 - rows containing the supplied benchmark values.
@@ -58,12 +60,18 @@ metrics. Motion is minimal and disabled when `prefers-reduced-motion` is set.
 The renderer derives filter options and summary counts from the data. It gives
 equal scores equal ranks and preserves source order for ties.
 
+A complete run should identify both `model` and `workflow`. They are independent
+experimental dimensions: model captures underlying LLM capability, while
+workflow captures orchestration, ordering, iteration, and feedback. Current
+source results omit model identity and therefore display `Not reported`.
+
 ## Updating the benchmark
 
 1. Edit only `data/leaderboard.json` for routine result additions.
 2. Keep numeric metrics as numbers, not formatted strings.
 3. Add a column definition before adding a new metric to rows.
 4. State protocol differences in the task note.
-5. Validate JSON and inspect each task and pair at desktop and mobile widths.
+5. Add the exact model and version to each new row.
+6. Validate JSON and inspect each task, pair, and model at desktop and mobile widths.
 
 Do not compare rows across tasks: their protocols and primary metrics differ.

@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Methodology for the Agentic Ontology Integration Benchmark."
+    />
+    <title>Methodology · Agentic Ontology Integration Benchmark</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="methodology-page">
+    <header class="method-header">
+      <nav class="topbar" aria-label="Primary navigation">
+        <a class="brand" href="index.html" aria-label="Ontology Workflows home">
+          <span class="brand-mark" aria-hidden="true">OW</span>
+          <span>Ontology Workflows</span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html#leaderboard">Leaderboard</a>
+          <a href="methodology.html" aria-current="page">Methodology</a>
+          <a
+            class="github-link"
+            href="https://github.com/lamng3/benchmark_leaderboard"
+            target="_blank"
+            rel="noreferrer"
+          >
+            GitHub <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </nav>
+
+      <div class="method-hero">
+        <p class="eyebrow"><span></span> Evaluation methodology</p>
+        <h1>Measure the model.<br />Measure the <em>system.</em></h1>
+        <p>
+          A strong LLM does not guarantee a strong ontology integration system.
+          We evaluate model capability and workflow orchestration as separate,
+          traceable dimensions.
+        </p>
+      </div>
+    </header>
+
+    <main class="method-main">
+      <section class="method-summary" aria-label="Methodology summary">
+        <div><span>Unit of comparison</span><strong>One evaluated run</strong></div>
+        <div><span>Controlled by</span><strong>Task + pair + protocol</strong></div>
+        <div><span>Compared across</span><strong>Model + workflow</strong></div>
+      </section>
+
+      <section class="method-section split-section">
+        <div>
+          <p class="section-kicker">The core idea</p>
+          <h2>Two axes explain every result.</h2>
+        </div>
+        <div class="prose">
+          <p>
+            <strong>Model capability</strong> captures what the underlying LLM
+            can recognize, extract, and reason about. <strong>Workflow lift</strong>
+            captures what orchestration adds through ordering, iteration, tool
+            use, and feedback.
+          </p>
+          <p>
+            Ranking only by model hides workflow effects. Ranking only by
+            workflow hides model effects. The leaderboard records both so a run
+            can be compared fairly along either axis.
+          </p>
+        </div>
+      </section>
+
+      <section class="run-anatomy">
+        <div class="run-anatomy-head">
+          <div>
+            <p class="section-kicker">Evaluation unit</p>
+            <h2>Anatomy of a benchmark run</h2>
+          </div>
+          <p>Change one dimension at a time to attribute performance correctly.</p>
+        </div>
+        <div class="run-flow" aria-label="Task, pair, model, workflow and protocol produce metrics">
+          <article>
+            <span>01</span>
+            <small>Task</small>
+            <strong>What is tested?</strong>
+          </article>
+          <i aria-hidden="true">→</i>
+          <article>
+            <span>02</span>
+            <small>Ontology pair</small>
+            <strong>On which graphs?</strong>
+          </article>
+          <i aria-hidden="true">→</i>
+          <article class="axis-model">
+            <span>03</span>
+            <small>Model</small>
+            <strong>Which LLM?</strong>
+          </article>
+          <i aria-hidden="true">+</i>
+          <article class="axis-workflow">
+            <span>04</span>
+            <small>Workflow</small>
+            <strong>Which orchestration?</strong>
+          </article>
+          <i aria-hidden="true">→</i>
+          <article>
+            <span>05</span>
+            <small>Metrics</small>
+            <strong>How well?</strong>
+          </article>
+        </div>
+      </section>
+
+      <section class="method-section task-methods">
+        <div class="section-heading">
+          <p class="section-kicker">Task suite</p>
+          <h2>Three views of integration quality</h2>
+        </div>
+        <div class="method-card-grid">
+          <article>
+            <span class="task-number">A</span>
+            <p class="card-label">Feedback loop</p>
+            <h3>Interleaved OM ↔ RR</h3>
+            <p>
+              Tests whether relation-reasoning feedback improves a subsequent
+              ontology-matching pass on ENVO ↔ SWEET.
+            </p>
+            <dl>
+              <div><dt>Primary</dt><dd>Pass@1</dd></div>
+              <div><dt>Also report</dt><dd>Accuracy, P/R/F1, chain accuracy</dd></div>
+            </dl>
+          </article>
+          <article>
+            <span class="task-number">B</span>
+            <p class="card-label">Component ablation</p>
+            <h3>OM–RE interaction</h3>
+            <p>
+              Compares neither, OM-only, RE-only, and combined modes across
+              low-, medium-, and high-overlap OSKGC pairs.
+            </p>
+            <dl>
+              <div><dt>Primary</dt><dd>F1</dd></div>
+              <div><dt>Also report</dt><dd>Precision, recall, MCC</dd></div>
+            </dl>
+          </article>
+          <article>
+            <span class="task-number">C</span>
+            <p class="card-label">Orchestration</p>
+            <h3>Workflow ordering</h3>
+            <p>
+              Compares single-pass, alternating, and front-loaded OM–RE
+              sequences while keeping the evaluation pair fixed.
+            </p>
+            <dl>
+              <div><dt>Primary</dt><dd>F1</dd></div>
+              <div><dt>Also report</dt><dd>Precision, recall, MCC</dd></div>
+            </dl>
+          </article>
+        </div>
+      </section>
+
+      <section class="method-section split-section metric-section">
+        <div>
+          <p class="section-kicker">Scoring</p>
+          <h2>Metrics answer different questions.</h2>
+        </div>
+        <div class="metric-list">
+          <article><strong>Precision</strong><p>How many predicted relations or alignments are correct?</p></article>
+          <article><strong>Recall</strong><p>How much of the gold alignment did the system recover?</p></article>
+          <article><strong>F1</strong><p>What is the harmonic balance between precision and recall?</p></article>
+          <article><strong>MCC</strong><p>How balanced is classification quality across all outcomes?</p></article>
+          <article><strong>Pass@1</strong><p>How often does the first generated answer pass end-to-end?</p></article>
+          <article><strong>Chain accuracy</strong><p>Can the system verify multi-step relational reasoning?</p></article>
+        </div>
+      </section>
+
+      <section class="integrity-callout">
+        <div class="integrity-icon" aria-hidden="true">!</div>
+        <div>
+          <p class="section-kicker">Reporting status</p>
+          <h2>Unknown is better than invented.</h2>
+          <p>
+            The source tables in the current release do not identify the LLM
+            used for each run. Those rows are explicitly marked
+            <strong>“Not reported.”</strong> Model comparisons activate as soon
+            as verified model-labelled runs are added to the benchmark data.
+          </p>
+        </div>
+      </section>
+
+      <section class="method-section rules-section">
+        <div class="section-heading">
+          <p class="section-kicker">Fair comparison rules</p>
+          <h2>When does a ranking count?</h2>
+        </div>
+        <ol class="rules-list">
+          <li><span>01</span><div><strong>Same task</strong><p>Do not rank different evaluation objectives against one another.</p></div></li>
+          <li><span>02</span><div><strong>Same ontology pair</strong><p>Pair difficulty and overlap must remain visible.</p></div></li>
+          <li><span>03</span><div><strong>Same protocol</strong><p>Sampling, top-k, iteration count, and gold sets must match.</p></div></li>
+          <li><span>04</span><div><strong>Named model</strong><p>Record model version—not only a provider or family name.</p></div></li>
+          <li><span>05</span><div><strong>Traceable workflow</strong><p>Report ordering, feedback, and component configuration.</p></div></li>
+        </ol>
+      </section>
+
+      <section class="method-cta">
+        <div>
+          <p class="section-kicker">Explore the evidence</p>
+          <h2>See the runs behind the method.</h2>
+        </div>
+        <a href="index.html#leaderboard">Open leaderboard <span aria-hidden="true">→</span></a>
+      </section>
+    </main>
+
+    <footer>
+      <p>Agentic Ontology Integration Benchmark</p>
+      <p>Data and methodology are open for inspection.</p>
+    </footer>
+  </body>
+</html>

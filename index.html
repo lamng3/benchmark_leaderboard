@@ -26,7 +26,7 @@
           </a>
           <div class="nav-links">
             <a href="#leaderboard">Leaderboard</a>
-            <a href="docs/DESIGN.md">Methodology</a>
+            <a href="methodology.html">Methodology</a>
             <a
               class="github-link"
               href="https://github.com/lamng3/benchmark_leaderboard"
@@ -49,8 +49,8 @@
           </p>
           <div class="hero-meta" aria-label="Benchmark summary">
             <div><strong id="workflow-count">—</strong><span>Workflow runs</span></div>
+            <div><strong id="model-count">—</strong><span>Models reported</span></div>
             <div><strong id="pair-count">—</strong><span>Ontology pairs</span></div>
-            <div><strong>3</strong><span>Evaluation tasks</span></div>
           </div>
         </div>
         <div class="hero-orbit" aria-hidden="true">
@@ -69,8 +69,8 @@
             <h2>Compare workflows, not just models.</h2>
           </div>
           <p>
-            Each task isolates a different interaction pattern. Select a task
-            and ontology pair to inspect results under like-for-like settings.
+            Separate the effect of the model from the workflow around it.
+            Compare only runs sharing the same task, ontology pair, and protocol.
           </p>
         </section>
 
@@ -84,6 +84,10 @@
             <div class="segmented-control">
               <button class="filter-button active" type="button" aria-pressed="true">Overall</button>
             </div>
+          </div>
+          <div class="control-row">
+            <span class="control-label">Model</span>
+            <div class="segmented-control model-control" id="model-filter" role="group" aria-label="Model"></div>
           </div>
           <div class="control-row">
             <span class="control-label">Ontology pair</span>
