@@ -17,12 +17,12 @@ The experience should feel:
 ## Information architecture
 
 1. **Hero:** explains the benchmark and exposes its current scale.
-2. **Benchmark explorer:** TaskA, TaskB, and TaskC selectors plus a simple
-   Overall target.
-3. **Model filter:** compares named model versions within a controlled task.
-4. **Ontology-pair filter:** narrows a task without combining incomparable
-   configurations.
-5. **Task card:** task description, protocol, ranked results, and caveat.
+2. **Dashboard views:** Results, Models, and Workflows reuse the same filters.
+3. **Compact filter bar:** task, model, ontology pair, and text search.
+4. **Results:** ranks on the primary metric and expands secondary metrics only
+   when requested.
+5. **Models / Workflows:** condenses repeated rows into coverage cards within
+   the selected task and protocol.
 6. **Methodology:** explains the evaluation unit and fair-comparison rules.
 
 ## Task mapping
@@ -44,8 +44,10 @@ changing navigation. The task card supplies the meaningful experiment title.
 - **Manrope + DM Mono:** readable prose paired with technical metadata.
 - **Orbit motif:** a lightweight representation of agents and ontology nodes.
 
-Tables remain horizontally scrollable on small screens instead of hiding
-metrics. Motion is minimal and disabled when `prefers-reduced-motion` is set.
+The primary table stays narrow at every task: rank, model, workflow, ontology
+pair, primary score, and a details action. Secondary metrics appear in an
+expandable row. Motion is minimal and disabled when `prefers-reduced-motion`
+is set.
 
 ## Data model
 

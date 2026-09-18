@@ -66,36 +66,68 @@
         <section class="leaderboard-intro">
           <div>
             <p class="section-kicker">Benchmark explorer</p>
-            <h2>Compare workflows, not just models.</h2>
+            <h2>One benchmark. Three useful views.</h2>
           </div>
           <p>
-            Separate the effect of the model from the workflow around it.
-            Compare only runs sharing the same task, ontology pair, and protocol.
+            Filter once, then inspect ranked results, model coverage, or workflow
+            performance without navigating between separate tables.
           </p>
         </section>
 
-        <section class="control-panel" aria-label="Leaderboard filters">
-          <div class="control-row">
-            <span class="control-label">Task</span>
-            <div class="segmented-control" id="task-filter" role="group" aria-label="Task"></div>
+        <section class="dashboard" aria-label="Benchmark dashboard">
+          <div class="view-tabs" id="view-filter" role="tablist" aria-label="Dashboard view">
+            <button class="view-tab active" type="button" role="tab" data-view="results" aria-selected="true">
+              Results
+            </button>
+            <button class="view-tab" type="button" role="tab" data-view="models" aria-selected="false">
+              Models <span id="model-tab-count">0</span>
+            </button>
+            <button class="view-tab" type="button" role="tab" data-view="workflows" aria-selected="false">
+              Workflows
+            </button>
           </div>
-          <div class="control-row">
-            <span class="control-label">Target</span>
-            <div class="segmented-control">
-              <button class="filter-button active" type="button" aria-pressed="true">Overall</button>
+
+          <div class="filter-bar" aria-label="Leaderboard filters">
+            <label class="select-field">
+              <span>Task</span>
+              <select id="task-filter" aria-label="Task"></select>
+            </label>
+            <label class="select-field">
+              <span>Model</span>
+              <select id="model-filter" aria-label="Model"></select>
+            </label>
+            <label class="select-field">
+              <span>Ontology pair</span>
+              <select id="pair-filter" aria-label="Ontology pair"></select>
+            </label>
+            <label class="search-field">
+              <span>Find a run</span>
+              <div>
+                <span aria-hidden="true">⌕</span>
+                <input id="search-filter" type="search" placeholder="Model or workflow…" />
+              </div>
+            </label>
+            <button id="clear-filters" class="clear-filters" type="button">Reset</button>
+          </div>
+
+          <div class="dashboard-summary" aria-label="Filtered result summary">
+            <div>
+              <span>Showing</span>
+              <strong id="filtered-count">—</strong>
+              <small>runs</small>
             </div>
-          </div>
-          <div class="control-row">
-            <span class="control-label">Model</span>
-            <div class="segmented-control model-control" id="model-filter" role="group" aria-label="Model"></div>
-          </div>
-          <div class="control-row">
-            <span class="control-label">Ontology pair</span>
-            <div class="segmented-control pair-control" id="pair-filter" role="group" aria-label="Ontology pair"></div>
+            <div>
+              <span>Ranking by</span>
+              <strong id="ranking-metric">—</strong>
+            </div>
+            <div>
+              <span>Model coverage</span>
+              <strong id="model-coverage">—</strong>
+            </div>
           </div>
         </section>
 
-        <section class="task-card" aria-live="polite">
+        <section class="task-card" id="results-view" aria-live="polite">
           <div class="task-card-header">
             <div>
               <div class="task-title-line">
@@ -122,6 +154,17 @@
             </table>
           </div>
           <p class="table-note" id="table-note"></p>
+        </section>
+
+        <section class="entity-panel" id="entity-view" hidden aria-live="polite">
+          <div class="entity-panel-header">
+            <div>
+              <p class="section-kicker" id="entity-kicker">Coverage</p>
+              <h3 id="entity-title">Models</h3>
+            </div>
+            <p id="entity-description"></p>
+          </div>
+          <div class="entity-grid" id="entity-grid"></div>
         </section>
 
         <section class="principles">
