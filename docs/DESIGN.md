@@ -1,0 +1,69 @@
+# Leaderboard design
+
+## Product direction
+
+The leaderboard presents agentic ontology integration as a workflow evaluation
+problem. It takes interaction cues from the CQ4OE benchmark—task tabs, compact
+filters, grouped configurations, and dense result tables—while using an
+independent visual identity and information architecture.
+
+The experience should feel:
+
+- **Credible:** restrained color, explicit protocols, and no decorative scores.
+- **Fast:** static files, no framework, and one small JSON request.
+- **Explorable:** every task and ontology pair is directly linkable in the URL.
+- **Workflow-first:** workflow ordering is more prominent than model branding.
+
+## Information architecture
+
+1. **Hero:** explains the benchmark and exposes its current scale.
+2. **Benchmark explorer:** TaskA, TaskB, and TaskC selectors plus a simple
+   Overall target.
+3. **Ontology-pair filter:** narrows a task without combining incomparable
+   configurations.
+4. **Task card:** task description, protocol, ranked results, and caveat.
+5. **Principles:** communicates workflow-first, pair-aware, reproducible design.
+
+## Task mapping
+
+| Public label | Source experiment | Ranking metric |
+| --- | --- | --- |
+| TaskA | Interleaved OM ↔ RR on ENVO–SWEET | Pass@1 |
+| TaskB | OM–RE component interaction on OSKGC | F1 |
+| TaskC | OM–RE workflow ordering on OSKGC | F1 |
+
+Task names intentionally remain generic so experiment names can evolve without
+changing navigation. The task card supplies the meaningful experiment title.
+
+## Visual system
+
+- **Dark forest green:** research credibility and strong table hierarchy.
+- **Lime:** active graph nodes and benchmark accents.
+- **Orange:** ontology-pair selection, distinct from task selection.
+- **Manrope + DM Mono:** readable prose paired with technical metadata.
+- **Orbit motif:** a lightweight representation of agents and ontology nodes.
+
+Tables remain horizontally scrollable on small screens instead of hiding
+metrics. Motion is minimal and disabled when `prefers-reduced-motion` is set.
+
+## Data model
+
+`data/leaderboard.json` is the source of truth. Each task defines:
+
+- stable ID, display labels, description, protocol, and footnote;
+- `rankBy`, used for descending ranking;
+- ordered column definitions with display types;
+- rows containing the supplied benchmark values.
+
+The renderer derives filter options and summary counts from the data. It gives
+equal scores equal ranks and preserves source order for ties.
+
+## Updating the benchmark
+
+1. Edit only `data/leaderboard.json` for routine result additions.
+2. Keep numeric metrics as numbers, not formatted strings.
+3. Add a column definition before adding a new metric to rows.
+4. State protocol differences in the task note.
+5. Validate JSON and inspect each task and pair at desktop and mobile widths.
+
+Do not compare rows across tasks: their protocols and primary metrics differ.

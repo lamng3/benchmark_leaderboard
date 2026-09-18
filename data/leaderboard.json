@@ -1,0 +1,145 @@
+{
+  "benchmark": {
+    "name": "Agentic Ontology Integration Benchmark",
+    "version": "1.0",
+    "updated": "2026-09-18",
+    "description": "Workflow-level evaluation of ontology matching, relation extraction, and relation reasoning."
+  },
+  "tasks": [
+    {
+      "id": "task-a",
+      "label": "TaskA",
+      "shortLabel": "A",
+      "title": "Interleaved ontology matching and relation reasoning",
+      "description": "Measures whether iterative reasoning feedback improves ontology alignment on ENVO ↔ SWEET.",
+      "protocol": "|gold| = 839 · OM refinement → concept-graph alignment → RR chain verification",
+      "rankBy": "passAt1",
+      "note": "The baseline uses top-k = 10 and 200 RR samples. Interleaved runs use top-k = 5 and 20 RR samples per iteration.",
+      "columns": [
+        { "key": "workflow", "label": "Stage", "type": "text" },
+        { "key": "pair", "label": "Ontology pair", "type": "pair" },
+        { "key": "accuracy", "label": "Accuracy", "type": "percent" },
+        { "key": "precision", "label": "Precision", "type": "percent" },
+        { "key": "recall", "label": "Recall", "type": "percent" },
+        { "key": "f1", "label": "F1", "type": "percent" },
+        { "key": "counts", "label": "TP / FP / FN", "type": "text" },
+        { "key": "llm", "label": "LLM", "type": "number" },
+        { "key": "tripleDetection", "label": "Triple detection", "type": "text" },
+        { "key": "chainReasoning", "label": "Chain reasoning", "type": "text" },
+        { "key": "passAt1", "label": "Pass@1", "type": "percent", "primary": true }
+      ],
+      "rows": [
+        {
+          "workflow": "Iter 1 · initial",
+          "pair": "ENVO ↔ SWEET",
+          "accuracy": 98.45,
+          "precision": 100,
+          "recall": 96.89,
+          "f1": 98.42,
+          "counts": "405 / 0 / 13",
+          "llm": 49,
+          "tripleDetection": "40% (8/20)",
+          "chainReasoning": "95% (19/20)",
+          "passAt1": 67.5
+        },
+        {
+          "workflow": "Iter 2 · feedback",
+          "pair": "ENVO ↔ SWEET",
+          "accuracy": 98.33,
+          "precision": 100,
+          "recall": 96.65,
+          "f1": 98.3,
+          "counts": "404 / 0 / 14",
+          "llm": 48,
+          "tripleDetection": "30% (6/20)",
+          "chainReasoning": "95% (19/20)",
+          "passAt1": 62.5
+        },
+        {
+          "workflow": "Reference baseline",
+          "pair": "ENVO ↔ SWEET",
+          "accuracy": 99.17,
+          "precision": 100,
+          "recall": 98.33,
+          "f1": 99.16,
+          "counts": "411 / 0 / 7",
+          "llm": 35,
+          "tripleDetection": "68% (68/100)",
+          "chainReasoning": "95% (95/100)",
+          "passAt1": 81.5
+        }
+      ]
+    },
+    {
+      "id": "task-b",
+      "label": "TaskB",
+      "shortLabel": "B",
+      "title": "Ontology matching and relation extraction interaction",
+      "description": "Isolates the contribution of matching and extraction across ontology pairs with different overlap levels.",
+      "protocol": "OSKGC · fixed evaluation set · component ablation across four execution modes",
+      "rankBy": "f1",
+      "note": "Scores are reported per ontology pair. Overall ranking uses F1; ties retain their source-data order.",
+      "columns": [
+        { "key": "workflow", "label": "Mode", "type": "text" },
+        { "key": "pair", "label": "Ontology pair", "type": "pair" },
+        { "key": "overlap", "label": "Overlap", "type": "text" },
+        { "key": "precision", "label": "Precision", "type": "decimal" },
+        { "key": "recall", "label": "Recall", "type": "decimal" },
+        { "key": "f1", "label": "F1", "type": "decimal", "primary": true },
+        { "key": "mcc", "label": "MCC", "type": "decimal" }
+      ],
+      "rows": [
+        { "pair": "Politician ↔ Scientist", "overlap": "High", "workflow": "Neither", "precision": 0.8966, "recall": 1, "f1": 0.9455, "mcc": 0.9191 },
+        { "pair": "Politician ↔ Scientist", "overlap": "High", "workflow": "OM only", "precision": 0.8966, "recall": 1, "f1": 0.9455, "mcc": 0.9191 },
+        { "pair": "Politician ↔ Scientist", "overlap": "High", "workflow": "RE only", "precision": 1, "recall": 1, "f1": 1, "mcc": 1 },
+        { "pair": "Politician ↔ Scientist", "overlap": "High", "workflow": "OM + RE", "precision": 1, "recall": 1, "f1": 1, "mcc": 1 },
+        { "pair": "Airport ↔ City", "overlap": "Medium", "workflow": "Neither", "precision": 0.8966, "recall": 1, "f1": 0.9455, "mcc": 0.9191 },
+        { "pair": "Airport ↔ City", "overlap": "Medium", "workflow": "OM only", "precision": 0.8966, "recall": 1, "f1": 0.9455, "mcc": 0.9191 },
+        { "pair": "Airport ↔ City", "overlap": "Medium", "workflow": "RE only", "precision": 1, "recall": 1, "f1": 1, "mcc": 1 },
+        { "pair": "Airport ↔ City", "overlap": "Medium", "workflow": "OM + RE", "precision": 1, "recall": 1, "f1": 1, "mcc": 1 },
+        { "pair": "ComicsCharacter ↔ Food", "overlap": "Low", "workflow": "Neither", "precision": 1, "recall": 1, "f1": 1, "mcc": 1 },
+        { "pair": "ComicsCharacter ↔ Food", "overlap": "Low", "workflow": "OM only", "precision": 1, "recall": 1, "f1": 1, "mcc": 1 },
+        { "pair": "ComicsCharacter ↔ Food", "overlap": "Low", "workflow": "RE only", "precision": 1, "recall": 1, "f1": 1, "mcc": 1 },
+        { "pair": "ComicsCharacter ↔ Food", "overlap": "Low", "workflow": "OM + RE", "precision": 1, "recall": 1, "f1": 1, "mcc": 1 }
+      ]
+    },
+    {
+      "id": "task-c",
+      "label": "TaskC",
+      "shortLabel": "C",
+      "title": "Agentic workflow ordering",
+      "description": "Compares single-pass, alternating, and front-loaded OM–RE workflows on OSKGC.",
+      "protocol": "OSKGC · W1–W2 single pass · W3–W4 alternating · W5–W6 front-loaded",
+      "rankBy": "f1",
+      "note": "OM = ontology matching; RE = relation extraction. Workflow arrows show execution order.",
+      "columns": [
+        { "key": "workflow", "label": "Workflow", "type": "text" },
+        { "key": "pair", "label": "Ontology pair", "type": "pair" },
+        { "key": "precision", "label": "Precision", "type": "decimal" },
+        { "key": "recall", "label": "Recall", "type": "decimal" },
+        { "key": "f1", "label": "F1", "type": "decimal", "primary": true },
+        { "key": "mcc", "label": "MCC", "type": "decimal" }
+      ],
+      "rows": [
+        { "pair": "Politician ↔ Scientist", "workflow": "W1 · OM → RE", "precision": 1, "recall": 0.7222, "f1": 0.8387, "mcc": 0.8248 },
+        { "pair": "Politician ↔ Scientist", "workflow": "W2 · RE → OM", "precision": 1, "recall": 0.7222, "f1": 0.8387, "mcc": 0.8248 },
+        { "pair": "Politician ↔ Scientist", "workflow": "W3 · OM → RE → OM → RE", "precision": 1, "recall": 0.7222, "f1": 0.8387, "mcc": 0.8248 },
+        { "pair": "Politician ↔ Scientist", "workflow": "W4 · RE → OM → RE → OM", "precision": 1, "recall": 0.7222, "f1": 0.8387, "mcc": 0.8248 },
+        { "pair": "Politician ↔ Scientist", "workflow": "W5 · OM → OM → RE → RE", "precision": 1, "recall": 0.7222, "f1": 0.8387, "mcc": 0.8248 },
+        { "pair": "Politician ↔ Scientist", "workflow": "W6 · RE → RE → OM → OM", "precision": 1, "recall": 0.7222, "f1": 0.8387, "mcc": 0.8248 },
+        { "pair": "Airport ↔ City", "workflow": "W1 · OM → RE", "precision": 1, "recall": 1, "f1": 1, "mcc": 1 },
+        { "pair": "Airport ↔ City", "workflow": "W2 · RE → OM", "precision": 1, "recall": 1, "f1": 1, "mcc": 1 },
+        { "pair": "Airport ↔ City", "workflow": "W3 · OM → RE → OM → RE", "precision": 1, "recall": 1, "f1": 1, "mcc": 1 },
+        { "pair": "Airport ↔ City", "workflow": "W4 · RE → OM → RE → OM", "precision": 1, "recall": 1, "f1": 1, "mcc": 1 },
+        { "pair": "Airport ↔ City", "workflow": "W5 · OM → OM → RE → RE", "precision": 1, "recall": 1, "f1": 1, "mcc": 1 },
+        { "pair": "Airport ↔ City", "workflow": "W6 · RE → RE → OM → OM", "precision": 1, "recall": 1, "f1": 1, "mcc": 1 },
+        { "pair": "ComicsCharacter ↔ Food", "workflow": "W1 · OM → RE", "precision": 1, "recall": 0.7895, "f1": 0.8824, "mcc": 0.8683 },
+        { "pair": "ComicsCharacter ↔ Food", "workflow": "W2 · RE → OM", "precision": 1, "recall": 0.7895, "f1": 0.8824, "mcc": 0.8683 },
+        { "pair": "ComicsCharacter ↔ Food", "workflow": "W3 · OM → RE → OM → RE", "precision": 1, "recall": 0.7895, "f1": 0.8824, "mcc": 0.8683 },
+        { "pair": "ComicsCharacter ↔ Food", "workflow": "W4 · RE → OM → RE → OM", "precision": 1, "recall": 0.7895, "f1": 0.8824, "mcc": 0.8683 },
+        { "pair": "ComicsCharacter ↔ Food", "workflow": "W5 · OM → OM → RE → RE", "precision": 1, "recall": 0.7895, "f1": 0.8824, "mcc": 0.8683 },
+        { "pair": "ComicsCharacter ↔ Food", "workflow": "W6 · RE → RE → OM → OM", "precision": 1, "recall": 0.7895, "f1": 0.8824, "mcc": 0.8683 }
+      ]
+    }
+  ]
+}

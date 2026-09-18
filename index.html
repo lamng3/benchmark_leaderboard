@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A transparent leaderboard for agentic ontology integration workflows."
+    />
+    <title>Agentic Ontology Integration Leaderboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <nav class="topbar" aria-label="Primary navigation">
+          <a class="brand" href="#" aria-label="Ontology Workflows home">
+            <span class="brand-mark" aria-hidden="true">OW</span>
+            <span>Ontology Workflows</span>
+          </a>
+          <div class="nav-links">
+            <a href="#leaderboard">Leaderboard</a>
+            <a href="docs/DESIGN.md">Methodology</a>
+            <a
+              class="github-link"
+              href="https://github.com/lamng3/benchmark_leaderboard"
+              target="_blank"
+              rel="noreferrer"
+            >
+              GitHub
+              <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </nav>
+
+        <div class="hero-content">
+          <p class="eyebrow"><span></span> Open benchmark · v1.0</p>
+          <h1>Agentic Ontology<br /><em>Integration</em> Leaderboard</h1>
+          <p class="hero-copy">
+            Comparing how agentic workflows coordinate ontology matching,
+            relation extraction, and relation reasoning across heterogeneous
+            knowledge domains.
+          </p>
+          <div class="hero-meta" aria-label="Benchmark summary">
+            <div><strong id="workflow-count">—</strong><span>Workflow runs</span></div>
+            <div><strong id="pair-count">—</strong><span>Ontology pairs</span></div>
+            <div><strong>3</strong><span>Evaluation tasks</span></div>
+          </div>
+        </div>
+        <div class="hero-orbit" aria-hidden="true">
+          <span class="orbit orbit-one"></span>
+          <span class="orbit orbit-two"></span>
+          <span class="node node-one"></span>
+          <span class="node node-two"></span>
+          <span class="node node-three"></span>
+        </div>
+      </header>
+
+      <main id="leaderboard">
+        <section class="leaderboard-intro">
+          <div>
+            <p class="section-kicker">Benchmark explorer</p>
+            <h2>Compare workflows, not just models.</h2>
+          </div>
+          <p>
+            Each task isolates a different interaction pattern. Select a task
+            and ontology pair to inspect results under like-for-like settings.
+          </p>
+        </section>
+
+        <section class="control-panel" aria-label="Leaderboard filters">
+          <div class="control-row">
+            <span class="control-label">Task</span>
+            <div class="segmented-control" id="task-filter" role="group" aria-label="Task"></div>
+          </div>
+          <div class="control-row">
+            <span class="control-label">Target</span>
+            <div class="segmented-control">
+              <button class="filter-button active" type="button" aria-pressed="true">Overall</button>
+            </div>
+          </div>
+          <div class="control-row">
+            <span class="control-label">Ontology pair</span>
+            <div class="segmented-control pair-control" id="pair-filter" role="group" aria-label="Ontology pair"></div>
+          </div>
+        </section>
+
+        <section class="task-card" aria-live="polite">
+          <div class="task-card-header">
+            <div>
+              <div class="task-title-line">
+                <span class="task-number" id="task-number">A</span>
+                <h3 id="task-title">Loading benchmark…</h3>
+              </div>
+              <p id="task-description"></p>
+            </div>
+            <div class="result-count">
+              <span id="result-count">—</span>
+              <small>results</small>
+            </div>
+          </div>
+
+          <div class="configuration-note">
+            <span>Evaluation protocol</span>
+            <code id="task-protocol">Loading…</code>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead id="leaderboard-head"></thead>
+              <tbody id="leaderboard-body"></tbody>
+            </table>
+          </div>
+          <p class="table-note" id="table-note"></p>
+        </section>
+
+        <section class="principles">
+          <article>
+            <span>01</span>
+            <h3>Workflow-first</h3>
+            <p>Evaluate ordering, feedback, and iteration—not only the underlying model.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Pair-aware</h3>
+            <p>Keep ontology-pair difficulty visible instead of hiding it in an aggregate.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Reproducible</h3>
+            <p>Store benchmark values in a reviewable data file with explicit protocols.</p>
+          </article>
+        </section>
+      </main>
+
+      <footer>
+        <p>Agentic Ontology Integration Benchmark</p>
+        <p>Data and methodology are open for inspection.</p>
+      </footer>
+    </div>
+    <noscript>This leaderboard requires JavaScript to render benchmark data.</noscript>
+    <script src="app.js" defer></script>
+  </body>
+</html>
